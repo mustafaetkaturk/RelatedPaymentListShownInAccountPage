@@ -1,7 +1,12 @@
 public class PaymentController {
 
-    @auraEnabled
+// Controller's Name is given as requested
+
+    @auraEnabled //Aura is enabled for the method
     public static List<Payment__c> getPayments(Id recordId){
+
+// getPayments method will require the recordId from the current account page and will return the list of payments.
+
         return [SELECT Payment_Type__c,
                 Amount__c,
                 Due_Date__c,
@@ -9,5 +14,8 @@ public class PaymentController {
                 CreatedDate 
                 FROM Payment__c 
                 WHERE  Account__r.id=:recordId  ];
+
+// It is an easy SOQL query but the problem is that it is nested because of CreatedBy.Name and it needs data flattening. 
+
     }
 }
