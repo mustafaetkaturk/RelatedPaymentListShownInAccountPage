@@ -1,0 +1,39 @@
+<aura:component controller="PaymentController" 
+                implements="flexipage:availableForRecordHome,force:hasRecordId"
+                access="global" >
+//The controller's name, retrieving the RecordId from the current record page, access type are established 
+
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="Account" type="Account"/>
+    <aura:attribute name="Payments" type="Payment__c"/>
+    <aura:attribute name="Columns" type="List"/>
+
+//The elements for datatable are established. 
+    
+    <aura:handler name="init" value="{!this}" action="{!c.myAction}"/>
+    
+//Aura will handle the value and put in an action defined in the controller
+
+    <force:recordData aura:id="accountRecord"
+                      recordId="{!v.recordId}"
+                      targetFields="{!v.Account}"
+                      layoutType= "FULL"
+                      />
+//Connection of "recordId" has been established.
+
+    <lightning:card iconName="standard:contact"
+                    title="{!'Payment List for ' + v.Account.Name}">
+                    
+//Header for the table is created.                    
+                    
+    	<lightning:datatable data="{!v.Payments}"
+                             columns="{!v.Columns}"
+                             keyField="Id"
+                             hideCheckboxColumn="true"
+                             />
+
+//Data table is created.
+
+    </lightning:card>
+    
+</aura:component>
