@@ -1,0 +1,13 @@
+public class PaymentController {
+
+    @auraEnabled
+    public static List<Payment__c> getPayments(Id recordId){
+        return [SELECT Payment_Type__c,
+                Amount__c,
+                Due_Date__c,
+                CreatedBy.Name,
+                CreatedDate 
+                FROM Payment__c 
+                WHERE  Account__r.id=:recordId  ];
+    }
+}
